@@ -21,17 +21,11 @@ $repoPath = '/www/wwwroot/test.mirpurianscafe.com';
 $userFile = "$repoPath/user.txt";
 $logFile = "$repoPath/deploy-log.txt";
 
-// Ensure permissions for log files (optional, requires PHP to have permission)
+// Ensure files exist and have write permission
 @touch($userFile);
 @touch($logFile);
-@chmod($userFile, 0664);
-@chmod($logFile, 0664);
-
-// Optional: change ownership (needs PHP to be allowed to do this)
-@chown($userFile, 'ajmain');
-@chgrp($userFile, 'www-data');
-@chown($logFile, 'ajmain');
-@chgrp($logFile, 'www-data');
+@chmod($userFile, 0666); // Allow web user to write
+@chmod($logFile, 0666);
 
 // Log current user
 file_put_contents($userFile, shell_exec('whoami'));
